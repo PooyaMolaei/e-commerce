@@ -1,5 +1,6 @@
-import UserCart from "./components/card/cart";
-import UserInfo from "./components/card/userInfo";
+"use client"
+import UserCart from "./cart/components/card/cart";
+import UserInfo from "./cart/components/card/userInfo";
 
 const User = () => {
   return (
