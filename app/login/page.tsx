@@ -1,4 +1,4 @@
-const SignIn = () => {
+const LogIn = () => {
   return (
     <section className="w-full h-screen">
       <div className="mx-auto">
@@ -65,4 +65,4 @@ const SignIn = () => {
     </section>
   );
 };
-export default SignIn;
+export default LogIn;

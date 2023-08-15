@@ -1,6 +1,6 @@
 "use client"
-import UserCart from "./cart/components/card/cart";
-import UserInfo from "./cart/components/card/userInfo";
+import UserCart from "./card/cart";
+import UserInfo from "./card/userInfo";
 
 const User = () => {
   return (

@@ -1,5 +1,5 @@
 import productsSlice from "./products-slice";
-import loginSlice from "./login-slice";
+import loginSlice from "./auth-slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 export type RootState = ReturnType<typeof rootReducer>;

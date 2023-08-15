@@ -1,8 +1,8 @@
 "use client";
 import React, { ReactNode } from "react";
-import Navbar from "./navabr/page";
+import Navbar from "./navbar";
 import { Provider } from "react-redux";
-import store from "@/components/features/store";
+import store from "@/store/rootReducer";
 
 interface LayoutProps {
   children: ReactNode;

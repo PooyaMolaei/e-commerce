@@ -4,8 +4,8 @@ import { Fragment } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { RootState } from "@/components/features/store";
-import { loginActions } from "@/components/features/store/login-slice";
+import { RootState } from "@/store/rootReducer";
+import { loginActions } from "@/store/auth-slice";
 import Link from "next/link";
 
 const navigation = [
