@@ -5,11 +5,11 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm();
   return (
     <section className="w-full h-screen">
-      <div className="mx-auto">
-        <div className="p-5 m-10">
-          <h1 className="text-center text-xl">Create account</h1>
-        </div>
+      <div className="flex justify-center items-center h-screen">
         <div className="block max-w-sm mx-auto rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+          <div className="p-2">
+            <h1 className="text-center text-xl">Create account</h1>
+          </div>
           <form className="">
             <div className="mb-6">
               <label
@@ -81,7 +81,7 @@ const SignUp = () => {
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Register new account
+              Sing Up
             </button>
           </form>
         </div>
