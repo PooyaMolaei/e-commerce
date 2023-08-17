@@ -8,13 +8,6 @@ import { RootState } from "@/store/rootReducer";
 import { loginActions } from "@/store/auth-slice";
 import Link from "next/link";
 
-const navigation = [
-  { name: "Home", href: "#" },
-  { name: "Sing Up", href: "/signup", isLogin: false },
-  { name: "Market", href: "#", isLogin: true },
-  { name: "About", href: "#" },
-  { name: "Contact Us", href: "#" },
-];
 
 const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -82,7 +75,7 @@ const Navbar = () => {
                         {isLogin && (
                           <div>
                             <Link
-                              href={"/"}
+                              href={"/market"}
                               className={classNames(
                                 "text-gray-800 hover:bg-gray-700 hover:text-white",
                                 "rounded-md px-3 py-2 text-sm font-medium"
@@ -94,7 +87,7 @@ const Navbar = () => {
                         )}
                         <div>
                           <Link
-                            href={"/"}
+                            href={"/about"}
                             className={classNames(
                               "text-gray-800 hover:bg-gray-700 hover:text-white",
                               "rounded-md px-3 py-2 text-sm font-medium"
@@ -141,7 +134,7 @@ const Navbar = () => {
                               {({ active }) => (
                                 <Link
                                   onClick={loginHandler}
-                                  href="#"
+                                  href="/login"
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
@@ -154,7 +147,7 @@ const Navbar = () => {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  href="#"
+                                  href="/signup"
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
@@ -171,7 +164,7 @@ const Navbar = () => {
 
                     {!isLogin && (
                       <Link
-                        href="/"
+                        href="/login"
                         onClick={loginHandler}
                         className="hidden md:inline-block relative p-1 mx-2 rounded border border-gray-800 hover:bg-gray-800 hover:text-white"
                       >
@@ -180,7 +173,7 @@ const Navbar = () => {
                     )}
                     {!isLogin && (
                       <Link
-                        href="/"
+                        href="/signup"
                         className="md:inline-block md:relative p-1 hidden"
                       >
                         Sign Up
@@ -192,7 +185,7 @@ const Navbar = () => {
                         className="relative rounded-full p-1 text-gray-700 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-gray-800"
                       >
                         <span className="absolute -inset-1.5" />
-                        <span className="sr-only">View notifications</span>
+                        <span className="sr-only">View cart</span>
                         <svg
                           className="h-6 w-6"
                           xmlns="http://www.w3.org/2000/svg"
@@ -238,7 +231,7 @@ const Navbar = () => {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  href="#"
+                                  href="user-profile"
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
@@ -298,7 +291,7 @@ const Navbar = () => {
                   {isLogin && (
                     <Disclosure.Button
                       as="a"
-                      href={"/signup"}
+                      href={"/market"}
                       className={classNames(
                         "text-gray-800 hover:bg-gray-700 hover:text-white",
                         "block rounded-md px-3 py-2 text-base font-medium"
@@ -309,7 +302,7 @@ const Navbar = () => {
                   )}
                   <Disclosure.Button
                     as="a"
-                    href={"/signup"}
+                    href={"/about"}
                     className={classNames(
                       "text-gray-800 hover:bg-gray-700 hover:text-white",
                       "block rounded-md px-3 py-2 text-base font-medium"
@@ -320,7 +313,7 @@ const Navbar = () => {
 
                   <Disclosure.Button
                     as="a"
-                    href={"/signup"}
+                    href={"/contactus"}
                     className={classNames(
                       "text-gray-800 hover:bg-gray-700 hover:text-white",
                       "block rounded-md px-3 py-2 text-base font-medium"
