@@ -13,9 +13,9 @@ const Market = () => {
   const products = PRODUCTS();
   return (
     <>
-      <div className="w-full h-full">
+      <section className="w-full h-full">
         <div>
-          <h1 className="text-center text-xl my-2">Market</h1>
+          <h1 className="text-center text-xl my-4 md:my-6 lg:my-8">Market</h1>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-2 md:mx-6 lg:mx-8">
           {products.map((product) => (
@@ -55,7 +55,7 @@ const Market = () => {
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </>
   );
 };

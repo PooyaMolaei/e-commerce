@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
+    "@hookform/resolvers": "^3.2.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.4.9",
     "@types/react": "18.2.19",
@@ -28,6 +29,7 @@
     "swr": "^2.2.1",
     "tailwindcss": "3.3.3",
     "tw-elements": "^1.0.0-beta3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "zod": "^3.22.2"
   }
 }

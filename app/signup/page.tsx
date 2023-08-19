@@ -1,8 +1,43 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { z, ZodType } from "zod";
+
+type formInput = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const formSchema: ZodType<formInput> = z
+  .object({
+    name: z.string().min(2).max(20),
+    email: z.string().email(),
+    password: z.string().min(5).max(20),
+    confirmPassword: z.string().min(5).max(20),
+  })
+  .refine((input) => input.password === input.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 const SignUp = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formInput>({
+    resolver: zodResolver(formSchema),
+  });
+  const router = useRouter();
+
+  const submitForm = (data: formInput) => {
+    localStorage.setItem("user", JSON.stringify(data));
+    router.push("/login");
+  };
+
   return (
     <section className="w-full h-screen">
       <div className="flex justify-center items-center h-screen">
@@ -10,7 +45,27 @@ const SignUp = () => {
           <div className="p-2">
             <h1 className="text-center text-xl">Create account</h1>
           </div>
-          <form className="">
+          <form onSubmit={handleSubmit(submitForm)}>
+            <div className="mb-6">
+              <label
+                htmlFor="firstnam"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                {...register("name")}
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                placeholder="John Doe"
+                required
+              />
+              {errors.name && (
+                <span className="text-xs  text-red-900">
+                  {errors.name.message}
+                </span>
+              )}
+            </div>
             <div className="mb-6">
               <label
                 htmlFor="email"
@@ -20,11 +75,16 @@ const SignUp = () => {
               </label>
               <input
                 type="email"
-                id="email"
+                {...register("email")}
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                placeholder="name@flowbite.com"
+                placeholder="johndoe@email.com"
                 required
               />
+              {errors.email && (
+                <span className="text-xs text-red-900">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
             <div className="mb-6">
               <label
@@ -35,10 +95,16 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
-                id="password"
+                {...register("password")}
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                placeholder="••••••••"
                 required
               />
+              {errors.password && (
+                <span className="text-xs text-red-900">
+                  {errors.password.message}
+                </span>
+              )}
             </div>
             <div className="mb-6">
               <label
@@ -49,10 +115,16 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
-                id="repeat-password"
+                {...register("confirmPassword")}
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                placeholder="••••••••"
                 required
               />
+              {errors.confirmPassword && (
+                <span className="text-xs text-red-900">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
             </div>
             <div className="flex items-start mb-6">
               <div className="flex items-center h-5">
