@@ -1,5 +1,63 @@
+"use client";
+import { useForm } from "react-hook-form";
+import { z, ZodType } from "zod";
+import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { authActions } from "@/store/auth-slice";
+
+type formInput = {
+  email: string;
+  password: string;
+};
+
+type userData = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
 const LogIn = () => {
-  
+  const dispatch = useDispatch();
+  const [inputEmail,setInputEmail] = useState("")
+  const [inputPwd,setInputPwd] = useState("")
+  const [parsedUser, setParsedUser] = useState<userData | null>();
+  useEffect(() => {
+    const user = window.localStorage.getItem("user");
+    if (user) {
+      setParsedUser(JSON.parse(user));
+    }
+    return;
+  }, []);
+  const userEmail = parsedUser ? parsedUser.email : "";
+  const userPassword = parsedUser ? parsedUser.password : "";
+  const formSchema: ZodType<formInput> = z
+    .object({
+      email: z.string().email(),
+      password: z.string().min(5).max(20),
+    })
+    .refine(
+      (input) => input.email !== userEmail || input.password !== userPassword,
+      {
+        message: "email or password incorrect",
+        path: ["email"],
+      }
+    );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formInput>({
+    resolver: zodResolver(formSchema),
+  });
+  const router = useRouter();
+  const submit = () => {
+    dispatch(authActions.login());
+    router.push("/user-profile");
+  };
+
   return (
     <section className="w-full h-screen">
       <div className="flex justify-center items-center h-screen">
@@ -7,7 +65,7 @@ const LogIn = () => {
           <div className="p-2">
             <h1 className="text-center text-xl">Log In</h1>
           </div>
-          <form>
+          <form onSubmit={handleSubmit(submit)}>
             <div className="mb-6">
               <label
                 htmlFor="email"
@@ -17,11 +75,16 @@ const LogIn = () => {
               </label>
               <input
                 type="email"
-                id="email"
+                {...register("email")}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@flowbite.com"
+                placeholder="johndoe@email.com"
                 required
               />
+              {errors.email && (
+                <span className="text-xs  text-red-900">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
             <div className="mb-6">
               <label
@@ -32,28 +95,17 @@ const LogIn = () => {
               </label>
               <input
                 type="password"
-                id="password"
+                {...register("password")}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
+              {errors.password && (
+                <span className="text-xs  text-red-900">
+                  {errors.password.message}
+                </span>
+              )}
             </div>
-            <div className="flex items-start mb-6">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  value=""
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                  required
-                />
-              </div>
-              <label
-                htmlFor="remember"
-                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Remember me
-              </label>
-            </div>
+
             <button
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

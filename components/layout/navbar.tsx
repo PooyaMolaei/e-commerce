@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/rootReducer";
-import { loginActions } from "@/store/auth-slice";
+import { authActions } from "@/store/auth-slice";
 import Link from "next/link";
 
 
@@ -23,7 +23,7 @@ const Navbar = () => {
   }, []);
 
   const loginHandler = () => {
-    dispatch(loginActions.login());
+    dispatch(authActions.login());
   };
 
   return (
@@ -133,7 +133,6 @@ const Navbar = () => {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  onClick={loginHandler}
                                   href="/login"
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
@@ -165,7 +164,6 @@ const Navbar = () => {
                     {!isLogin && (
                       <Link
                         href="/login"
-                        onClick={loginHandler}
                         className="hidden md:inline-block relative p-1 mx-2 rounded border border-gray-800 hover:bg-gray-800 hover:text-white"
                       >
                         Log In
