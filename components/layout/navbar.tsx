@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/rootReducer";
 import { authActions } from "@/store/auth-slice";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 
@@ -15,14 +16,16 @@ const classNames = (...classes: string[]) => {
 
 const Navbar = () => {
   const [shouldRender, setShouldRender] = useState(false);
+  const showCart = useSelector((state:RootState)=>state.cart.isShown)
   const isLogin = useSelector((state: RootState) => state.login.login);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     setShouldRender(true);
   }, []);
 
-  const loginHandler = () => {
+  const logoutHandler = () => {
     dispatch(authActions.login());
   };
 
@@ -98,7 +101,7 @@ const Navbar = () => {
                         </div>
                         <div>
                           <Link
-                            href={"/"}
+                            href="/contact"
                             className={classNames(
                               "text-gray-800 hover:bg-gray-700 hover:text-white",
                               "rounded-md px-3 py-2 text-sm font-medium"
@@ -255,14 +258,14 @@ const Navbar = () => {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  onClick={loginHandler}
-                                  href="#"
+                                  onClick={logoutHandler}
+                                  href="/"
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                 >
-                                  Sign out
+                                  Log Out
                                 </Link>
                               )}
                             </Menu.Item>
@@ -311,7 +314,7 @@ const Navbar = () => {
 
                   <Disclosure.Button
                     as="a"
-                    href={"/contactus"}
+                    href="/contact"
                     className={classNames(
                       "text-gray-800 hover:bg-gray-700 hover:text-white",
                       "block rounded-md px-3 py-2 text-base font-medium"

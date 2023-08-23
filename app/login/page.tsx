@@ -21,8 +21,6 @@ type userData = {
 
 const LogIn = () => {
   const dispatch = useDispatch();
-  const [inputEmail,setInputEmail] = useState("")
-  const [inputPwd,setInputPwd] = useState("")
   const [parsedUser, setParsedUser] = useState<userData | null>();
   useEffect(() => {
     const user = window.localStorage.getItem("user");
@@ -33,29 +31,30 @@ const LogIn = () => {
   }, []);
   const userEmail = parsedUser ? parsedUser.email : "";
   const userPassword = parsedUser ? parsedUser.password : "";
-  const formSchema: ZodType<formInput> = z
-    .object({
-      email: z.string().email(),
-      password: z.string().min(5).max(20),
-    })
-    .refine(
-      (input) => input.email !== userEmail || input.password !== userPassword,
-      {
-        message: "email or password incorrect",
-        path: ["email"],
-      }
-    );
+  const formSchema: ZodType<formInput> = z.object({
+    email: z.string().email(),
+    password: z.string().min(5).max(20),
+  });
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<formInput>({
     resolver: zodResolver(formSchema),
   });
+
+  const emailInput = watch("email");
+  const pwdInput = watch("password");
   const router = useRouter();
   const submit = () => {
-    dispatch(authActions.login());
-    router.push("/user-profile");
+    if (emailInput === userEmail && pwdInput === userPassword) {
+      dispatch(authActions.login());
+      router.push("/user-profile");
+    } else {
+      alert("email or password incorrect")
+      return;
+    }
   };
 
   return (

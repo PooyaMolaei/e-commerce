@@ -14,7 +14,6 @@ const PRODUCTS = () => {
     const fetchData = async () => {
       const res = await fetch("https://fakestoreapi.com/products");
       const fetchedData: Data[] = await res.json();
-
       setData(fetchedData.slice(0, 20));
     };
     fetchData();
