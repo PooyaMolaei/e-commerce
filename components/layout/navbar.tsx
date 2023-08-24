@@ -6,9 +6,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/rootReducer";
 import { authActions } from "@/store/auth-slice";
+import { cartActions } from "@/store/cart-slice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
 
 const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -16,7 +16,6 @@ const classNames = (...classes: string[]) => {
 
 const Navbar = () => {
   const [shouldRender, setShouldRender] = useState(false);
-  const showCart = useSelector((state:RootState)=>state.cart.isShown)
   const isLogin = useSelector((state: RootState) => state.login.login);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,6 +26,10 @@ const Navbar = () => {
 
   const logoutHandler = () => {
     dispatch(authActions.login());
+  };
+
+  const openCartHandler = () => {
+    dispatch(cartActions.showSlide());
   };
 
   return (
@@ -60,10 +63,10 @@ const Navbar = () => {
                   </div>
                   <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
                     <div className="flex flex-shrink-0 items-center">
-                      <div>EC</div>
+                      <div className="bold text-2xl">EC</div>
                     </div>
-                    <div className="hidden md:ml-6 md:block">
-                      <div className="flex space-x-4">
+                    <div className="hidden content-center md:ml-6 md:block">
+                      <div className="flex p-1 space-x-4">
                         <div>
                           <Link
                             href={"/"}
@@ -182,6 +185,7 @@ const Navbar = () => {
                     )}
                     {isLogin && (
                       <button
+                        onClick={openCartHandler}
                         type="button"
                         className="relative rounded-full p-1 text-gray-700 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-gray-800"
                       >
@@ -239,19 +243,6 @@ const Navbar = () => {
                                   )}
                                 >
                                   Your Profile
-                                </Link>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  href="#"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  Settings
                                 </Link>
                               )}
                             </Menu.Item>

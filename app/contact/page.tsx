@@ -1,17 +1,17 @@
-"use client"
-import emailjs from '@emailjs/browser';
+"use client";
+import emailjs from "@emailjs/browser";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 
-
+const MAIL_FORMAT =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const Contact = () => {
-  const form:any = useRef();
+  const formRef = useRef<HTMLFormElement>(null);
   const sendEmail = () => {
-    return 
-  }
-  const mailFormat =
-    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+    return;
+  };
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center my-10">
         <div
           id="drawer-contact"
           className="p-4 shadow-lg bg-white w-80 dark:bg-gray-800"
@@ -44,7 +44,7 @@ const Contact = () => {
             Contact us
           </h5>
 
-          <form ref={form} onSubmit={handleSubmit(sendEmail)} className="mb-6">
+          <form ref={formRef} onSubmit={handleSubmit(sendEmail)} className="mb-6">
             <div className="mb-6">
               <label
                 htmlFor="email"
@@ -58,7 +58,7 @@ const Contact = () => {
                 {...register("email", {
                   required: "Your email address is required",
                   pattern: {
-                    value: mailFormat,
+                    value: MAIL_FORMAT,
                     message: "Please enter a valid email.",
                   },
                 })}
@@ -109,12 +109,12 @@ const Contact = () => {
           </form>
           <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
             <a href="#" className="hover:underline">
-              info@company.com
+              johndoe@gmail.com
             </a>
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <a href="#" className="hover:underline">
-              212-456-7890
+              999-999-9999
             </a>
           </p>
         </div>
