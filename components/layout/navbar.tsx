@@ -25,6 +25,7 @@ const Navbar = () => {
   }, []);
 
   const logoutHandler = () => {
+    localStorage.removeItem("isUserLogin");
     dispatch(authActions.login());
   };
 

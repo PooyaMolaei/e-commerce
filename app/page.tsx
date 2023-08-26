@@ -32,7 +32,7 @@ export default function Home() {
               className="w-80 md:ml-1 ml-24"
               alt="iPhone-12"
               src="/assets/images/iPhone-12-Mockup.png"
-            ></Image>
+            />
           </div>
         </div>
         <section className="relative">
@@ -50,7 +50,7 @@ export default function Home() {
                 type="email"
                 autoComplete="email"
                 className="border border-gray-600 w-1/4 pr-2 pl-2 py-3 mt-2 rounded-md text-gray-800 font-semibold hover:border-gray-900"
-              ></input>{" "}
+              />{" "}
               <Link
                 className="inline-flex items-center px-14 py-3 mt-2 ml-2 font-medium text-black dark:text-white dark:hover:text-black hover:text-white border-black hover:bg-blue-800 transition duration-500 ease-in-out transform bg-transparent border rounded-lg bg-gray-900"
                 href="/"

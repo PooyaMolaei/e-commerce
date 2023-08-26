@@ -50,6 +50,7 @@ const LogIn = () => {
   const submit = () => {
     if (emailInput === userEmail && pwdInput === userPassword) {
       dispatch(authActions.login());
+      localStorage.setItem("isUserLogin","true" );
       router.push("/user-profile");
     } else {
       alert("email or password incorrect")
