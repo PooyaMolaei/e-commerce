@@ -25,9 +25,13 @@ const Cart: React.FC = () => {
   return (
     <>
       {cart.isShown && (
-        <div className="fixed top-16 h-full left-0 z-40  p-4 shadow-lg bg-white w-80 dark:bg-gray-800">
-          <div className="mb-12 h-full w-full flex-col">
-            <div className="">
+        <>
+        <div onClick={closeHandler} className="w-full h-screen fixed z-30 bg-black/30">
+          
+        </div>
+        <div className="fixed top-16 h-full overflow-auto left-0 z-40 p-4 shadow-lg bg-white w-80 dark:bg-gray-800">
+          <div className="mb-12 w-full flex-col">
+            <div className="overscroll-auto">
               <div className="text-align t-10 left-4 mx-auto flex">
                 <h1 className="mx-auto mt-3 text-2xl">Your Cart</h1>
               </div>
@@ -55,7 +59,7 @@ const Cart: React.FC = () => {
                 </svg>
                 <span className="sr-only">Close menu</span>
               </button>
-              <div className="mx-5 mb-10 grid grid-cols-2 place-items-center gap-10 md:grid-cols-3 lg:grid-cols-4 lg:gap-3">
+              <div className="overscroll-contain">
                 {cart.products.map(
                   (product) =>
                     product.id in marketProductsId && (
@@ -97,6 +101,7 @@ const Cart: React.FC = () => {
         )} */}
           </div>
         </div>
+        </>
       )}
     </>
   );

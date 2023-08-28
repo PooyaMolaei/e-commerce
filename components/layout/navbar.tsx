@@ -38,7 +38,7 @@ const Navbar = () => {
       <>
         <Disclosure
           as="nav"
-          className="bg-slate-50 fixed w-full drop-shadow-md"
+          className="bg-gray-50 fixed z-50 w-full drop-shadow-md"
         >
           {({ open }) => (
             <>

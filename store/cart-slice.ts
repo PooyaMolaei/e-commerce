@@ -31,13 +31,12 @@ const cartSlice = createSlice({
       if (selectedProduct) {
         selectedProduct.quantity = (selectedProduct.quantity || 0) + 1;
       } else {
-        state.products.push({...product,quantity:1});
+        state.products.push({ ...product, quantity: 1 });
       }
       state.totalAmount = state.products.reduce((prevTotalAmount, product) => {
         return prevTotalAmount + product.price * (product.quantity || 0);
       }, 0);
     },
-
     decrement(state, { payload: id }: PayloadAction<number>) {
       const selectedProduct = state.products.find((product) => product.id === id);
       if (selectedProduct) {

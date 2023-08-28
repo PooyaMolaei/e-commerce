@@ -33,7 +33,7 @@ const CartItem = (props: Props) => {
 
   return (
     <div className="my-2 flex flex-col content-center place-self-center rounded-md border p-3 shadow shadow-black dark:border-white">
-      <div className="mb-3 flex flex-col text-left" key={props.id}>
+      <div className="mb-3 flex flex-col text-center" key={props.id}>
         <div className="mx-auto h-24">
           <Image src={props.image} alt={props.title} width={100} height={100} />
         </div>
@@ -43,14 +43,14 @@ const CartItem = (props: Props) => {
             <b>{props.title}</b>
           </p>
           <p className="text-sm">Price: ${props.price}</p>
-          
+          <p>Quantity: {props.quantity}</p>
         </div>
         <div className="mx-auto flex  w-2/3 rounded-lg bg-gray-900 text-white shadow-sm dark:bg-white dark:text-gray-900">
           <button className="px-1.5" onClick={() => handleDecrement(props)}>
             {" "}
             -{" "}
           </button>
-          <p className="text-xs">Total Item Amount: ${props.price*(props.quantity || 0)}</p>{" "}
+          <p className="text-xs flex-1 mx-auto">Total Price: ${props.price*(props.quantity || 0)}</p>{" "}
           <button className="px-1.5" onClick={() => handleIncrement(props)}>
             {" "}
             +{" "}
